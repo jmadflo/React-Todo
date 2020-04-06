@@ -1,0 +1,14 @@
+* {
+  text-align: center;
+}
+h2 {
+  color: orange;
+}
+.todo {
+  color: red;
+}
+  
+.todo.completed {
+    color: green;
+    text-decoration: line-through;
+}
