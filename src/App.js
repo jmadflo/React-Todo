@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoList from './components/TodoList'
 import TodoForm from './components/TodoForm'
+import SearchBar from './components/SearchBar'
 import './components/Todo.css'
 
 class App extends React.Component {
@@ -26,7 +27,7 @@ class App extends React.Component {
         completed: false
       }
     ],
-      todoVal: ''
+      todoVal: '' // TodoForm input value
     }
   }
 
@@ -58,6 +59,7 @@ class App extends React.Component {
     this.setState({todoList: this.state.todoList.filter(todo => !todo.completed)})
   }
 
+  // Form methods
   updateForm = event => {
     event.keyCode == 13 ? this.submitTodo(event) : this.setState({todoVal: event.target.value})
   }
@@ -68,10 +70,18 @@ class App extends React.Component {
     this.addTodo(event, this.state.todoVal)
   }
 
+  // update search bar results
+  updateSearch = event => {
+    this.setState({
+      todoList: this.state.todoList.filter(todo => todo.task.includes(event.target.value))
+    })
+  }
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+        <SearchBar updateSearch={this.updateSearch}/>
         <TodoList todoData={this.state.todoList} toggleCompleted={this.toggleCompleted}/>
         <TodoForm clearComplete={this.clearComplete} updateForm={this.updateForm} addTodo={this.addTodo} submitTodo={this.submitTodo} todoVal={this.state.todoVal}/>
       </div>
